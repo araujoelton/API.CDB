@@ -1,0 +1,49 @@
+<div class="calculator">
+  <h1>Calculadora CDB</h1>
+
+  <form (ngSubmit)="calcular()">
+    <div class="field">
+      <label for="valor">Valor (R$)</label>
+      <input
+        id="valor"
+        type="number"
+        [(ngModel)]="valor"
+        name="valor"
+        min="0.01"
+        step="0.01"
+        placeholder="Ex: 1000"
+      />
+    </div>
+
+    <div class="field">
+      <label for="prazo">Prazo (meses)</label>
+      <input
+        id="prazo"
+        type="number"
+        [(ngModel)]="prazoMeses"
+        name="prazoMeses"
+        min="2"
+        step="1"
+        placeholder="Ex: 12"
+      />
+    </div>
+
+    <button type="submit" [disabled]="carregando">
+      {{ carregando ? 'Calculando...' : 'Calcular' }}
+    </button>
+  </form>
+
+  @if (erro) {
+    <div class="erro">{{ erro }}</div>
+  }
+
+  @if (resultado) {
+    <div class="resultado">
+      <h2>Resultado</h2>
+      <p><strong>Valor Bruto:</strong> R$ {{ resultado.valorBruto | number:'1.2-2':'pt' }}</p>
+      <p><strong>Valor Líquido:</strong> R$ {{ resultado.valorLiquido | number:'1.2-2':'pt' }}</p>
+      <!--<p><strong>Ganhos:</strong> R$ {{ resultado.valorLiquido  - valor| number:'1.2-2':'pt' }}</p>
+      <p><strong>Imposto:</strong> R$ {{ resultado.imposto | number:'1.2-2':'pt' }}</p>-->
+    </div>
+  }
+</div>
